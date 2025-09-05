@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { TransactionsComponent } from './transactions/transactions.component';
@@ -9,6 +9,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterLink,
     HomeComponent,
     CreditCardComponent,
     TransactionsComponent,
