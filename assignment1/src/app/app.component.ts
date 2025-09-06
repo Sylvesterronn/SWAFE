@@ -5,16 +5,10 @@ import { CreditCardComponent } from './credit-card/credit-card.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 
 @Component({
-    selector: 'app-root',
-    imports: [
-        RouterOutlet,
-        RouterLink,
-        HomeComponent,
-        CreditCardComponent,
-        TransactionsComponent,
-    ],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css'
+  selector: 'app-root',
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'assignment1';
