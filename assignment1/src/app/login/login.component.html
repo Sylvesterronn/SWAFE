@@ -1,0 +1,10 @@
+<p>login works!</p>
+<div [formGroup]="loginForm">
+  <input type="text" formControlName="email" placeholder="Username" />
+</div>
+
+<div [formGroup]="loginForm">
+  <input type="password" formControlName="password" placeholder="Password" />
+</div>
+
+<button (click)="login()">Login</button>
