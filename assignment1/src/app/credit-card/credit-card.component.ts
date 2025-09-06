@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { CreditCard, CreditCardService } from './service/credit-card.service';
 
 @Component({
-  selector: 'app-credit-card',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './credit-card.component.html',
-  styleUrl: './credit-card.component.css',
+    selector: 'app-credit-card',
+    imports: [CommonModule],
+    templateUrl: './credit-card.component.html',
+    styleUrl: './credit-card.component.css'
 })
 export class CreditCardComponent {
   creditCardService = inject(CreditCardService);
