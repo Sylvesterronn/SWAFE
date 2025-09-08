@@ -1,7 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output, signal, inject, ChangeDetectionStrategy } from '@angular/core';
-import { CreditCard, CreditCardDetails } from '../home/service/credit-card.service';
-import { CreditCardDetailsService } from './service/credit-card-details.service';
+import {
+  Component,
+  input,
+  output,
+  signal,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { CreditCard } from '../home/service/credit-card.service';
+import {
+  CreditCardDetails,
+  CreditCardDetailsService,
+} from './service/credit-card-details.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,7 +36,9 @@ export class SidebarComponent {
     this.error.set(null);
 
     try {
-      const details = await this.creditCardDetailsService.getCreditCardDetails(cardNumber);
+      const details = await this.creditCardDetailsService.getCreditCardDetails(
+        cardNumber
+      );
       this.cardDetails.set(details);
     } catch (error) {
       console.error('Error loading credit card details:', error);
