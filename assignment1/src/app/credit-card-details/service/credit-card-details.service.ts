@@ -2,13 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../../login/service/login.service';
-import { CreditCardDetails } from '../../home/service/credit-card.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CreditCardDetailsService {
-  constructor(private httpClient: HttpClient, private authService: AuthService) {}
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
   getCreditCardDetails(cardNumber: number): Promise<CreditCardDetails> {
     const token = this.authService.getToken();
@@ -23,4 +25,14 @@ export class CreditCardDetailsService {
       )
     );
   }
+}
+
+export interface CreditCardDetails {
+  transactions: [];
+  cardNumber: number;
+  cscCode: number;
+  cardHolderName: string;
+  expirationYear: number;
+  expirationMonth: number;
+  issuer: string;
 }
