@@ -7,22 +7,16 @@ import { AuthService } from '../../login/service/login.service';
   providedIn: 'root',
 })
 export class CreditCardService {
-  constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService
-  ) {}
+  constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
   getCreditCards(): Promise<CreditCard[]> {
     const token = this.authService.getToken();
     return firstValueFrom(
-      this.httpClient.get<CreditCard[]>(
-        'https://assignment1.swafe.dk/api/CreditCard',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      this.httpClient.get<CreditCard[]>('https://assignment1.swafe.dk/api/CreditCard', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
     );
   }
 }
