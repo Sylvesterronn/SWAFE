@@ -6,17 +6,17 @@ import { AuthService } from '../../login/service/login.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CreditCardService {
+export class CreditCardDetailsService {
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService
   ) {}
 
-  getCreditCards(): Promise<CreditCard[]> {
+  getCreditCardDetails(cardNumber: number): Promise<CreditCardDetails> {
     const token = this.authService.getToken();
     return firstValueFrom(
-      this.httpClient.get<CreditCard[]>(
-        'https://assignment1.swafe.dk/api/CreditCard',
+      this.httpClient.get<CreditCardDetails>(
+        `https://assignment1.swafe.dk/api/CreditCard/cardnumber?cardnumber=${cardNumber}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,11 +27,12 @@ export class CreditCardService {
   }
 }
 
-export interface CreditCard {
-  cardHolderName: string;
+export interface CreditCardDetails {
+  transactions: [];
   cardNumber: number;
   cscCode: number;
-  expirationMonth: number;
+  cardHolderName: string;
   expirationYear: number;
+  expirationMonth: number;
   issuer: string;
 }
