@@ -45,6 +45,11 @@
   background: #f8f9fa;
 }
 
+.form-group input.ng-invalid.ng-touched {
+  border-color: #e74c3c;
+  background: #fdf2f2;
+}
+
 .form-group input:focus {
   outline: none;
   border-color: #667eea;
@@ -169,4 +174,12 @@
   margin-bottom: 20px;
   font-size: 14px;
   text-align: center;
+}
+
+.field-error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 5px;
+  font-weight: 500;
 }

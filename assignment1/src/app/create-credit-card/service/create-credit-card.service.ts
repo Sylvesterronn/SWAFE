@@ -29,5 +29,5 @@ export interface CreateCardData {
   cardHolderName: string;
   expirationMonth: number;
   expirationYear: number;
-  issuer?: string;
+  issuer: string;
 }
