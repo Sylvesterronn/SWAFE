@@ -1,6 +1,5 @@
 import {Component, inject, Inject, signal} from '@angular/core';
 import {Transaction, TransactionListService} from './service/transaction-list.service';
-import {error} from '@angular/compiler-cli/src/transformers/util';
 
 @Component({
   selector: 'app-transactions',
@@ -11,17 +10,17 @@ import {error} from '@angular/compiler-cli/src/transformers/util';
 })
 export class TransactionsComponent {
   transactionsListService = inject(TransactionListService);
-  transaction= signal<Transaction[]>([]);
+  transactions= signal<Transaction[]>([]);
 
   constructor() {
-    this.loadTransaction();
+    this.loadTransactions();
   }
 
 
-  private async loadTransaction() {
+  private async loadTransactions() {
     try{
       const data = await this.transactionsListService.getTransactionList();
-      this.transaction.set(data);
+      this.transactions.set(data);
     }
     catch (error) {
       console.error("Error loading transaction:", error);

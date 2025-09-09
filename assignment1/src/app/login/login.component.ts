@@ -8,10 +8,11 @@ import {
 } from '@angular/forms';
 
 @Component({
-    selector: 'app-login',
-    imports: [ReactiveFormsModule],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.css'
+  selector: 'app-login',
+  imports: [ReactiveFormsModule],
+  templateUrl: './login.component.html',
+  standalone: true,
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
   authService = inject(AuthService);

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from 'express';
 import {AuthService} from '../../login/service/login.service';
-import {CreditCard} from '../../credit-card/service/credit-card.service';
 import {firstValueFrom} from 'rxjs';
 
 @Injectable({
@@ -32,5 +31,5 @@ export interface Transaction {
   amount:number;
   currency:string;
   comment:string;
-  date:Date;
+  transactionDate:Date;
 }
