@@ -1,1 +1,20 @@
-<p>transactions works!</p>
+<input type="number" [(ngModel)]="cardNumberFilter"/>
+<button (click)="filterTransactions(cardNumberFilter)">Filter</button>
+<table>
+  <thead>
+  <tr>
+    <th>Date</th>
+    <th>Card Number</th>
+    <th>Amount</th>
+  </tr>
+  </thead>
+  <tbody>
+    @for(transaction of transactions(); track transaction){
+      <tr>
+        <td>{{ transaction.transactionDate }}</td>
+        <td>{{ transaction.cardNumber }}</td>
+        <td>{{ transaction.amount }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
