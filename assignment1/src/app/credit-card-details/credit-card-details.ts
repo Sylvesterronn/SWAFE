@@ -7,7 +7,10 @@ import {
   inject,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { CreditCard } from '../home/service/credit-card.service';
+import {
+  CreditCard,
+  CreditCardService,
+} from '../home/service/credit-card.service';
 import {
   CreditCardDetails,
   CreditCardDetailsService,
@@ -22,6 +25,7 @@ import {
 })
 export class SidebarComponent {
   private creditCardDetailsService = inject(CreditCardDetailsService);
+  private creditCardService = inject(CreditCardService);
 
   isOpen = input<boolean>(false);
   card = input<CreditCard | null>(null);
@@ -43,6 +47,21 @@ export class SidebarComponent {
     } catch (error) {
       console.error('Error loading credit card details:', error);
       this.error.set('Failed to load card details');
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  async deleteCard(cardNumber: number): Promise<void> {
+    this.isLoading.set(true);
+    this.error.set(null);
+
+    try {
+      await this.creditCardService.removeCreditCard(cardNumber);
+      this.onClose();
+    } catch (error) {
+      console.error('Error deleting credit card:', error);
+      this.error.set('Failed to delete card. Please try again.');
     } finally {
       this.isLoading.set(false);
     }

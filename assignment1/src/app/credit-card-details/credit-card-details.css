@@ -121,3 +121,12 @@
   font-size: 0.9rem;
   color: #495057;
 }
+
+.sidebar button {
+  color: red;
+  padding: 8px 16px;
+  margin-left: auto;
+  display: block;
+  margin-top: 20px;
+  margin-right: 10px;
+}
