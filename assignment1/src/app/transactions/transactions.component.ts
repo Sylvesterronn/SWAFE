@@ -8,7 +8,6 @@ import {FormsModule} from '@angular/forms';
     FormsModule
   ],
   templateUrl: './transactions.component.html',
-  standalone: true,
   styleUrl: './transactions.component.css'
 })
 export class TransactionsComponent {
