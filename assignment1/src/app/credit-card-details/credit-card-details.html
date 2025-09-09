@@ -1,0 +1,43 @@
+<div class="sidebar-overlay" [class.open]="isOpen()" (click)="onBackdropClick()">
+  <div class="sidebar" [class.open]="isOpen()" (click)="onSidebarClick($event)">
+    <div class="sidebar-header">
+      <h2>Credit Card Details</h2>
+      <button class="close-btn" (click)="onClose()">&times;</button>
+    </div>
+
+    @if(card()) {
+    <div class="sidebar-content">
+      @if(isLoading()) {
+      <div class="loading">Loading card details...</div>
+      } @else if(error()) {
+      <div class="error">{{ error() }}</div>
+      } @else if(cardDetails()) {
+      <div class="detail-item">
+        <label>Card Holder Name:</label>
+        <span>{{ cardDetails()!.cardHolderName }}</span>
+      </div>
+
+      <div class="detail-item">
+        <label>Card Number:</label>
+        <span>{{ cardDetails()?.cardNumber }}</span>
+      </div>
+
+      <div class="detail-item">
+        <label>CSC Code:</label>
+        <span>{{ cardDetails()?.cscCode }}</span>
+      </div>
+
+      <div class="detail-item">
+        <label>Expiration:</label>
+        <span>{{ cardDetails()?.expirationMonth }}/{{ cardDetails()?.expirationYear }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Issuer:</label>
+        <span>{{ cardDetails()?.issuer }}</span>
+      </div>
+      }
+    </div>
+    <button>REMOVE</button>
+    }
+  </div>
+</div>

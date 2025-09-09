@@ -1,1 +1,24 @@
-<p>home works!</p>
+<table>
+  <thead>
+    <tr>
+      <th>Card Holder</th>
+      <th>Card Number</th>
+      <th>Issuer</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(card of creditCards(); track card){
+    <tr (click)="onRowClick(card)">
+      <td>{{ card.cardHolderName }}</td>
+      <td>{{ card.cardNumber }}</td>
+      <td>{{ card.issuer }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
+<app-sidebar
+  #sidebar
+  [isOpen]="isSidebarOpen()"
+  [card]="selectedCard()"
+  (closeSidebar)="onCloseSidebar()"
+></app-sidebar>
