@@ -1,20 +1,18 @@
-import { Component, inject, signal, ViewChild } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { CreditCardService, CreditCard } from './service/credit-card.service';
-import { SidebarComponent } from '../credit-card-details/credit-card-details';
 
 @Component({
   selector: 'app-home',
-  imports: [SidebarComponent],
+  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  @ViewChild('sidebar') sidebar!: SidebarComponent;
+  private creditCardService = inject(CreditCardService);
+  private router = inject(Router);
 
-  creditCardService = inject(CreditCardService);
   creditCards = signal<CreditCard[]>([]);
-  selectedCard = signal<CreditCard | null>(null);
-  isSidebarOpen = signal<boolean>(false);
 
   constructor() {
     this.loadCreditCards();
@@ -30,14 +28,6 @@ export class HomeComponent {
   }
 
   onRowClick(card: CreditCard) {
-    this.selectedCard.set(card);
-    this.isSidebarOpen.set(true);
-    this.sidebar.loadCardDetails(card.cardNumber);
-  }
-
-  onCloseSidebar() {
-    this.isSidebarOpen.set(false);
-    this.selectedCard.set(null);
-    this.sidebar.clearCardDetails();
+    this.router.navigate(['/credit-card', card.cardNumber]);
   }
 }
