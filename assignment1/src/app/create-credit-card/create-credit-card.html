@@ -33,10 +33,11 @@
         >Card number: <span class="required">*</span></label
       >
       <input
-        type="text"
+        type="number"
+        pattern="/^-?\d+\.?\d*$/"
+        onKeyPress="if(this.value.length==16) return false;"
         placeholder="Enter card number"
         formControlName="cardNumber"
-        maxlength="16"
       />
       @if (getFieldError('cardNumber')) {
       <div class="field-error">{{ getFieldError('cardNumber') }}</div>
@@ -60,10 +61,10 @@
     <div class="form-group">
       <label for="cscCode">CSC code: <span class="required">*</span></label>
       <input
-        type="text"
+        pattern="/^-?\d+\.?\d*$/"
+        onKeyPress="if(this.value.length==3) return false;"
         placeholder="Enter CSC code"
         formControlName="cscCode"
-        maxlength="3"
       />
       @if (getFieldError('cscCode')) {
       <div class="field-error">{{ getFieldError('cscCode') }}</div>
