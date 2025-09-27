@@ -31,7 +31,7 @@ export class TransactionsComponent {
       [
         Validators.required,
         Validators.min(1),
-        Validators.pattern('^[0-9]{13,19}$'),
+        Validators.pattern('^[0-9]{7,16}$'),
       ],
     ],
     amount: [

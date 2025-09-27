@@ -89,7 +89,7 @@ export class CreateCreditCard {
   }
 
   navigateToHome() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 
   createAnother() {
