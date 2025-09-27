@@ -1,50 +1,86 @@
-<div
-  class="sidebar-overlay"
-  [class.open]="isOpen()"
-  (click)="onBackdropClick()"
->
-  <div class="sidebar" [class.open]="isOpen()" (click)="onSidebarClick($event)">
-    <div class="sidebar-header">
-      <h2>Credit Card Details</h2>
-      <button class="close-btn" (click)="onClose()">&times;</button>
-    </div>
+<div class="credit-card-details-page">
+  <div class="page-header">
+    <button class="back-btn" (click)="navigateBack()">
+      ← Back to Credit Cards
+    </button>
+    <h1>Credit Card Details</h1>
+  </div>
 
-    @if(card()) {
-    <div class="sidebar-content">
-      @if(isLoading()) {
-      <div class="loading">Loading card details...</div>
-      } @else if(error()) {
-      <div class="error">{{ error() }}</div>
-      } @else if(cardDetails()) {
-      <div class="detail-item">
-        <label>Card Holder Name:</label>
-        <span>{{ cardDetails()!.cardHolderName }}</span>
+  @if(card()) {
+  <div class="page-content">
+    @if(isLoading()) {
+    <div class="loading">Loading card details...</div>
+    } @else if(error()) {
+    <div class="error">{{ error() }}</div>
+    } @else if(cardDetails()) {
+    <div class="card-info">
+      <h2>{{ cardDetails()!.cardHolderName }}'s Card</h2>
+
+      <div class="detail-section">
+        <h3>Card Information</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <label>Card Number:</label>
+            <span>{{ cardDetails()?.cardNumber }}</span>
+          </div>
+
+          <div class="detail-item">
+            <label>CSC Code:</label>
+            <span>{{ cardDetails()?.cscCode }}</span>
+          </div>
+
+          <div class="detail-item">
+            <label>Expiration:</label>
+            <span
+              >{{ cardDetails()?.expirationMonth }}/{{
+              cardDetails()?.expirationYear }}</span
+            >
+          </div>
+
+          <div class="detail-item">
+            <label>Issuer:</label>
+            <span>{{ cardDetails()?.issuer }}</span>
+          </div>
+        </div>
       </div>
 
-      <div class="detail-item">
-        <label>Card Number:</label>
-        <span>{{ cardDetails()?.cardNumber }}</span>
+      <div class="detail-section">
+        <h3>Transaction History</h3>
+        <div class="transactions-list">
+          @for (transaction of cardDetails()?.transactions; track
+          transaction.uid) {
+          <div class="transaction-item">
+            <div class="transaction-amount">
+              <strong
+                >{{ transaction.amount }} {{ transaction.currencyCode }}</strong
+              >
+            </div>
+            <div class="transaction-date">
+              {{ transaction.transactionDate | customDate:'full' }}
+            </div>
+            @if (transaction.comment) {
+            <div class="transaction-comment">{{ transaction.comment }}</div>
+            }
+          </div>
+          } @empty {
+          <p class="no-transactions">No transactions found for this card.</p>
+          }
+        </div>
       </div>
 
-      <div class="detail-item">
-        <label>CSC Code:</label>
-        <span>{{ cardDetails()?.cscCode }}</span>
-      </div>
-
-      <div class="detail-item">
-        <label>Expiration:</label>
-        <span
-          >{{ cardDetails()?.expirationMonth }}/{{ cardDetails()?.expirationYear
-          }}</span
+      <div class="actions">
+        <button
+          class="delete-btn"
+          (click)="deleteCard(cardDetails()!.cardNumber)"
+          [disabled]="isLoading()"
         >
+          Delete Card
+        </button>
       </div>
-      <div class="detail-item">
-        <label>Issuer:</label>
-        <span>{{ cardDetails()?.issuer }}</span>
-      </div>
-      }
     </div>
-    <button (click)="deleteCard(cardDetails()!.cardNumber)">Delete</button>
     }
   </div>
+  } @else {
+  <div class="error">Credit card not found.</div>
+  }
 </div>

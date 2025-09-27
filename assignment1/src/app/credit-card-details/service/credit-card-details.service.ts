@@ -28,7 +28,14 @@ export class CreditCardDetailsService {
 }
 
 export interface CreditCardDetails {
-  transactions: [];
+  transactions: {
+    uid: string;
+    cardNumber: number;
+    amount: number;
+    currencyCode: string;
+    transactionDate: string;
+    comment: string;
+  }[];
   cardNumber: number;
   cscCode: number;
   cardHolderName: string;

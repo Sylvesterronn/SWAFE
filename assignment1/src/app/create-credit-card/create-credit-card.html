@@ -1,0 +1,126 @@
+<div class="form-container">
+  <!-- Success Screen -->
+  @if (isSuccess()) {
+  <div class="success-container">
+    <div class="success-content">
+      <h2>✅ Credit Card Created Successfully!</h2>
+      <p>Your credit card has been created and added to your account.</p>
+
+      <div class="button-group">
+        <button type="button" class="primary-btn" (click)="navigateToHome()">
+          Go to Home
+        </button>
+        <button type="button" class="secondary-btn" (click)="createAnother()">
+          Create Another Card
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Create Form -->
+  @if (!isSuccess()) {
+  <div [formGroup]="createForm" class="create-form">
+    <h2>Create Credit Card</h2>
+
+    <!-- Error Message -->
+    @if (errorMessage()) {
+    <div class="error-message">{{ errorMessage() }}</div>
+    }
+
+    <div class="form-group">
+      <label for="card_number"
+        >Card number: <span class="required">*</span></label
+      >
+      <input
+        type="number"
+        pattern="/^-?\d+\.?\d*$/"
+        onKeyPress="if(this.value.length==16) return false;"
+        placeholder="Enter card number"
+        formControlName="cardNumber"
+      />
+      @if (getFieldError('cardNumber')) {
+      <div class="field-error">{{ getFieldError('cardNumber') }}</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="card_holder_name"
+        >Card holder name: <span class="required">*</span></label
+      >
+      <input
+        type="text"
+        placeholder="Enter card holder name"
+        formControlName="cardHolderName"
+      />
+      @if (getFieldError('cardHolderName')) {
+      <div class="field-error">{{ getFieldError('cardHolderName') }}</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="cscCode">CSC code: <span class="required">*</span></label>
+      <input
+        pattern="/^-?\d+\.?\d*$/"
+        onKeyPress="if(this.value.length==3) return false;"
+        placeholder="Enter CSC code"
+        formControlName="cscCode"
+      />
+      @if (getFieldError('cscCode')) {
+      <div class="field-error">{{ getFieldError('cscCode') }}</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="expiration_month"
+        >Expiration month: <span class="required">*</span></label
+      >
+      <input
+        type="text"
+        placeholder="MM"
+        formControlName="expirationMonth"
+        maxlength="2"
+      />
+      @if (getFieldError('expirationMonth')) {
+      <div class="field-error">{{ getFieldError('expirationMonth') }}</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="expiration_year"
+        >Expiration year: <span class="required">*</span></label
+      >
+      <input
+        type="text"
+        placeholder="YYYY"
+        formControlName="expirationYear"
+        maxlength="4"
+      />
+      @if (getFieldError('expirationYear')) {
+      <div class="field-error">{{ getFieldError('expirationYear') }}</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="issuer">Issuer: <span class="required">*</span></label>
+      <input
+        type="text"
+        placeholder="Enter issuer name"
+        formControlName="issuer"
+      />
+      @if (getFieldError('issuer')) {
+      <div class="field-error">{{ getFieldError('issuer') }}</div>
+      }
+    </div>
+
+    <button
+      type="submit"
+      class="submit-btn"
+      (click)="createCreditCard()"
+      [disabled]="isLoading()"
+    >
+      {{ isLoading() ? 'Creating...' : 'Create Credit Card' }}
+    </button>
+  </div>
+  }
+</div>
