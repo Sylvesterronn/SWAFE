@@ -1,1 +1,163 @@
-<p>transactions works!</p>
+<div class="transactions-container">
+  <h2>Transactions</h2>
+
+  @if(error()) {
+  <div class="error-message">{{ error() }}</div>
+  }
+
+  <div class="add-transaction-form">
+    <h3>Add New Transaction</h3>
+    <form [formGroup]="transactionForm" (ngSubmit)="addTransaction()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cardNumber">Card Number:</label>
+          <input
+            type="number"
+            id="cardNumber"
+            formControlName="cardNumber"
+            [disabled]="isLoading()"
+          />
+          @if(cardNumber?.touched && cardNumber?.errors) {
+          <div class="error-text">
+            @if(cardNumber?.errors?.['required']) { Card number is required }
+            @if(cardNumber?.errors?.['min']) { Card number must be greater than
+            0 } @if(cardNumber?.errors?.['pattern']) { Card number must be 13-19
+            digits }
+          </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Amount:</label>
+          <input
+            type="number"
+            id="amount"
+            step="0.01"
+            formControlName="amount"
+            [disabled]="isLoading()"
+          />
+          @if(amount?.touched && amount?.errors) {
+          <div class="error-text">
+            @if(amount?.errors?.['required']) { Amount is required }
+            @if(amount?.errors?.['min']) { Amount must be greater than 0 }
+            @if(amount?.errors?.['max']) { Amount cannot exceed 999,999.99 }
+          </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="currencyCode">Currency:</label>
+          <input
+            type="text"
+            id="currencyCode"
+            formControlName="currencyCode"
+            placeholder="USD, EUR, DKK..."
+            [disabled]="isLoading()"
+          />
+          @if(currencyCode?.touched && currencyCode?.errors) {
+          <div class="error-text">
+            @if(currencyCode?.errors?.['required']) { Currency code is required
+            } @if(currencyCode?.errors?.['minlength'] ||
+            currencyCode?.errors?.['maxlength']) { Currency code must be exactly
+            3 characters } @if(currencyCode?.errors?.['pattern']) { Currency
+            code must be 3 uppercase letters (e.g., USD, EUR, DKK) }
+          </div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <input
+          type="text"
+          id="comment"
+          formControlName="comment"
+          [disabled]="isLoading()"
+        />
+        @if(comment?.touched && comment?.errors) {
+        <div class="error-text">
+          @if(comment?.errors?.['required']) { Comment is required }
+          @if(comment?.errors?.['minlength']) { Comment cannot be empty }
+          @if(comment?.errors?.['maxlength']) { Comment cannot exceed 500
+          characters }
+        </div>
+        }
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="transactionForm.invalid || isLoading()"
+        class="add-btn"
+      >
+        {{ isLoading() ? "Adding..." : "Add Transaction" }}
+      </button>
+    </form>
+  </div>
+
+  <div class="filter-section">
+    <h3>Filter Transactions</h3>
+    <div class="filter-controls">
+      <input
+        type="number"
+        [(ngModel)]="cardNumberFilter"
+        placeholder="Enter card number"
+        [disabled]="isLoading()"
+      />
+      <button
+        (click)="filterTransactions(cardNumberFilter)"
+        [disabled]="isLoading()"
+        class="filter-btn"
+      >
+        Filter
+      </button>
+      <button
+        (click)="clearFilter()"
+        [disabled]="isLoading()"
+        class="clear-btn"
+      >
+        Clear Filter
+      </button>
+    </div>
+  </div>
+
+  @if(isLoading()) {
+  <div class="loading">Loading...</div>
+  }
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Card Number</th>
+          <th>Amount</th>
+          <th>Comment</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(transaction of transactions(); track transaction){
+        <tr>
+          <td>{{ transaction.transactionDate }}</td>
+          <td>{{ transaction.cardNumber }}</td>
+          <td>{{ transaction.amount }} {{ transaction.currencyCode }}</td>
+          <td>{{ transaction.comment }}</td>
+          <td>
+            <button
+              (click)="removeTransaction(transaction.uid!)"
+              class="remove-btn"
+              [disabled]="isLoading()"
+            >
+              Remove
+            </button>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="5" class="no-data">No transactions found</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
