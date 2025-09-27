@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
@@ -7,6 +7,8 @@ import { firstValueFrom } from 'rxjs';
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'auth_token';
+
+  isLoggedIn = signal<boolean>(this.getToken() !== null);
 
   constructor(private httpClient: HttpClient) {}
 
@@ -24,6 +26,7 @@ export class AuthService {
       );
 
       sessionStorage.setItem(this.TOKEN_KEY, token);
+      this.isLoggedIn.set(true); // Update signal when login succeeds
       return token;
     } catch (error) {
       console.error('Login failed:', error);
@@ -35,11 +38,8 @@ export class AuthService {
     return sessionStorage.getItem(this.TOKEN_KEY);
   }
 
-  isLoggedIn(): boolean {
-    return this.getToken() !== null;
-  }
-
   logout(): void {
     sessionStorage.removeItem(this.TOKEN_KEY);
+    this.isLoggedIn.set(false); // Update signal when logout
   }
 }
