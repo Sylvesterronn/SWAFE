@@ -8,5 +8,5 @@ import { RouterOutlet, RouterLink } from '@angular/router';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'assignment1';
+  title = 'Assignment 1 - Credit Card Management';
 }

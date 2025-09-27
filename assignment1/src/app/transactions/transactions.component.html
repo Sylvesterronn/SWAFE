@@ -11,12 +11,7 @@
       <div class="form-row">
         <div class="form-group">
           <label for="cardNumber">Card Number:</label>
-          <input
-            type="number"
-            id="cardNumber"
-            formControlName="cardNumber"
-            [disabled]="isLoading()"
-          />
+          <input type="number" id="cardNumber" formControlName="cardNumber" />
           @if(cardNumber?.touched && cardNumber?.errors) {
           <div class="error-text">
             @if(cardNumber?.errors?.['required']) { Card number is required }
@@ -34,7 +29,6 @@
             id="amount"
             step="0.01"
             formControlName="amount"
-            [disabled]="isLoading()"
           />
           @if(amount?.touched && amount?.errors) {
           <div class="error-text">
@@ -52,7 +46,6 @@
             id="currencyCode"
             formControlName="currencyCode"
             placeholder="USD, EUR, DKK..."
-            [disabled]="isLoading()"
           />
           @if(currencyCode?.touched && currencyCode?.errors) {
           <div class="error-text">
@@ -68,12 +61,7 @@
 
       <div class="form-group">
         <label for="comment">Comment:</label>
-        <input
-          type="text"
-          id="comment"
-          formControlName="comment"
-          [disabled]="isLoading()"
-        />
+        <input type="text" id="comment" formControlName="comment" />
         @if(comment?.touched && comment?.errors) {
         <div class="error-text">
           @if(comment?.errors?.['required']) { Comment is required }
@@ -101,22 +89,11 @@
         type="number"
         [(ngModel)]="cardNumberFilter"
         placeholder="Enter card number"
-        [disabled]="isLoading()"
       />
-      <button
-        (click)="filterTransactions(cardNumberFilter)"
-        [disabled]="isLoading()"
-        class="filter-btn"
-      >
+      <button (click)="filterTransactions(cardNumberFilter)" class="filter-btn">
         Filter
       </button>
-      <button
-        (click)="clearFilter()"
-        [disabled]="isLoading()"
-        class="clear-btn"
-      >
-        Clear Filter
-      </button>
+      <button (click)="clearFilter()" class="clear-btn">Clear Filter</button>
     </div>
   </div>
 
@@ -138,7 +115,7 @@
       <tbody>
         @for(transaction of transactions(); track transaction){
         <tr>
-          <td>{{ transaction.transactionDate }}</td>
+          <td>{{ transaction.transactionDate | customDate : "medium" }}</td>
           <td>{{ transaction.cardNumber }}</td>
           <td>{{ transaction.amount }} {{ transaction.currencyCode }}</td>
           <td>{{ transaction.comment }}</td>
@@ -146,7 +123,6 @@
             <button
               (click)="removeTransaction(transaction.uid!)"
               class="remove-btn"
-              [disabled]="isLoading()"
             >
               Remove
             </button>

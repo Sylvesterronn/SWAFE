@@ -1,4 +1,4 @@
-@if(!this.authService.isLoggedIn()){
+@if(!authService.isLoggedIn()){
 <div class="form-container">
   <div [formGroup]="loginForm" class="login-form">
     <h2>Please enter your information to login to the application</h2>
@@ -18,8 +18,8 @@
   </div>
 </div>
 } @else {
-<p>Welcome back!</p>
+<h2>Welcome back!</h2>
 <div>
-  <button (click)="this.authService.logout()" class="submit-btn">Logout</button>
+  <button (click)="authService.logout()" class="submit-btn">Logout</button>
 </div>
 }

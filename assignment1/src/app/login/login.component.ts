@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from './service/login.service';
+import { Router } from '@angular/router';
 import {
   FormControl,
   FormGroup,
@@ -11,10 +12,11 @@ import {
   selector: 'app-login',
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   authService = inject(AuthService);
+  router = inject(Router);
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
@@ -26,6 +28,7 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value;
       try {
         await this.authService.login(email ?? '', password ?? '');
+        this.router.navigate(['/home']);
       } catch (error) {
         console.error('Login failed:', error);
       }

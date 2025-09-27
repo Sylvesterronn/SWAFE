@@ -10,10 +10,11 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
+import { CustomDatePipe } from '../pipes/custom-date.pipe';
 
 @Component({
   selector: 'app-transactions',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, CustomDatePipe],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
